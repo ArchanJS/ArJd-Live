@@ -3,6 +3,7 @@ import AceEditor from "react-ace";
 import axios from "axios";
 import socket from "../socket";
 import { VscRunAll, VscDebugRerun } from "react-icons/vsc";
+import {BsFillShareFill, BsShareFill} from 'react-icons/bs'
 import { languages, highlightedLangs, themes } from "./Snippets";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -32,10 +33,12 @@ const Home = () => {
   const [recLi, setRecLi] = useState([]);
   const [linkBody, setLinkBody] = useState("");
   const [changeDef, setChangeDef] = useState(false);
+  const [username,setUsername]=useState("");
 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
+      setLinkBody(window.location.href);
     setOpen(true);
   };
 
@@ -59,6 +62,7 @@ const Home = () => {
             setCode(data.code);
             setExt(data.extension);
             setLang(data.lang);
+            setUsername(data.username);
             let ind;
             for (let i = 0; i < languages.length; i++) {
               if (languages[i].extension === data.extension) {
@@ -199,21 +203,21 @@ const Home = () => {
   //             console.log(error);
   //         }
   //     }
-  //     const copyURL=()=>{
-  //         var r = document.createRange();
-  // r.selectNode(document.getElementById("alert-dialog-title"));
-  // window.getSelection().removeAllRanges();
-  // window.getSelection().addRange(r);
-  // document.execCommand('copy');
-  // window.getSelection().removeAllRanges();
-  //         handleClose();
-  //     }
+      const copyURL=()=>{
+          var r = document.createRange();
+  r.selectNode(document.getElementById("alert-dialog-title"));
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(r);
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();
+          handleClose();
+      }
   return (
     <>
       <div style={{ overflowY: "hidden", overflowX: "hidden", width: "100vw" }}>
         <div className="row" style={{ maxHeight: "100vh" }}>
           <div
-            className="col-lg-6 col-md-6 col-sm-4 col-4"
+            className="col-lg-2 col-md-2 col-sm-2 col-2"
             style={{
               backgroundColor: "#61004a",
               backgroundImage: `url("https://www.transparenttextures.com/patterns/blizzard.png")`,
@@ -224,6 +228,12 @@ const Home = () => {
               className="img-fluid"
               style={{ height: "70px", marginLeft: "20px" }}
             ></img>
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-2 col-2" style={{
+              backgroundColor: "#61004a",
+              backgroundImage: `url("https://www.transparenttextures.com/patterns/blizzard.png")`,
+            }}>
+          <h5 className="mt-4 text-white">Room Name: {username.length>15?`${username.slice(0,15)}...`:username}</h5>
           </div>
 
           <div
@@ -313,9 +323,9 @@ const Home = () => {
             >
               <VscRunAll />
             </button>
-            {/* <button type="button" className="btn btn-primary theme-class px-4"  data-bs-toggle="tooltip" data-bs-placement="top" title="Run and generate URL" onClick={uploadCodeAndGenerateUrl}>
-                            <VscDebugRerun/>
-                        </button> */}
+            <button type="button" className="btn btn-primary theme-class px-4"  data-bs-toggle="tooltip" data-bs-placement="top" title="Share this room" onClick={handleClickOpen}>
+                            <BsShareFill/>
+                        </button>
           </div>
         </div>
       </div>
@@ -446,7 +456,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* <Dialog
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -466,7 +476,7 @@ const Home = () => {
             Copy
           </Button>
         </DialogActions>
-      </Dialog> */}
+      </Dialog>
     </>
   );
 };

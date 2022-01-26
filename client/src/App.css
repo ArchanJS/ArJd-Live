@@ -1,6 +1,7 @@
 /* *{
   overflow-x: hidden !important;
 } */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 body{
   overflow-y: hidden !important;
   position: fixed;
