@@ -1,4 +1,4 @@
-# **Arjditor**
+# **ArJd-Live**
 ## To visit *ArJd-Live* click [here](https://arjd-live.herokuapp.com)
 ## Demo video click [here](https://youtu.be/nvcFr3a8WT4)
 
