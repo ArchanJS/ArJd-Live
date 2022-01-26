@@ -84,20 +84,22 @@ const Home = () => {
     useEffect(()=>{
         setTimeout(()=>{
             socket.emit('joined', {roomDbId:roomId,socketRoomId:socket.id})
-            socket.on("join",({username})=>console.log(`${username} joined!`));
+            // socket.on("join",({username})=>console.log(`${username} joined!`));
         },2000)
-        return ()=>{
-            socket.off('join');
-        }
     })
 
     useEffect(()=>{
-        setTimeout(()=>{
-            socket.on("receivingCode",({recCode})=>{
-                setCode(recCode);
-                console.log(recCode);
-            })
-        },10000)
+        socket.on("receivingCode",({recCode})=>{
+            setCode(recCode);
+            console.log(recCode);
+        })
+        socket.on("receivingInp",({inp})=>{
+            setInputData(inp);
+        })
+        socket.on("receiveOp",({op})=>{
+            setResult(op);
+            console.log(op);
+        })
     })
 
     const uploadCode = async () => {
@@ -123,6 +125,7 @@ const Home = () => {
                 .then(function (response) {
                     console.log(response.data);
                     setResult(response.data.output);
+                    socket.emit("sendOp",{op:response.data.output})
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -263,8 +266,9 @@ window.getSelection().removeAllRanges();
                         mode={lang}
                         theme={th}
                         onChange={(e) => {
-                            // setCode(e);
-                            socket.emit("enteringCode",{code:e})
+                            setCode(e);
+                            socket.emit("enteringCode",{code:e});
+                            // socket.emit("enteringCode",{code:e})
                         }
                         }
                         name="UNIQUE_ID_OF_DIV"
@@ -289,7 +293,10 @@ window.getSelection().removeAllRanges();
                     <div className="row" style={{minHeight:"50%",maxHeight:"50%"}}>
                         <div className="px-2" style={{minHeight:"100%",backgroundColor: "#1e1e1e"}}>
                         <h4 style={{overflowY:"hidden",color:"aqua"}} className='mt-3'>Input</h4><hr/>
-                            <textarea wrap='off' spellcheck="false" className="form-control" id="exampleFormControlTextarea1" rows={3} defaultValue={""} value={inputData} onChange={(e)=>setInputData(e.target.value)} style={{height:"78%",resize:"none",width:"98%",backgroundColor:"aqua",color:"black",fontWeight:"bolder", overflowX:"scroll"}} />
+                            <textarea wrap='off' spellcheck="false" className="form-control" id="exampleFormControlTextarea1" rows={3} defaultValue={""} value={inputData} onChange={(e)=>{
+                                setInputData(e.target.value)
+                                socket.emit("enteringInp",{inp:e.target.value})
+                            }} style={{height:"78%",resize:"none",width:"98%",backgroundColor:"aqua",color:"black",fontWeight:"bolder", overflowX:"scroll"}} />
                         </div>
                     </div>
                     <div className="row" style={{ backgroundColor: "#1e1e1e",height:"50%",maxHeight:"50%",color:"aqua"}}>

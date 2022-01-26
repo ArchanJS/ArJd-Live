@@ -53,6 +53,15 @@ io.on("connection",(socket)=>{
     // .emit("re");
     socket.on("enteringCode",({code})=>{
         console.log(code);
-        io.sockets.in("ntSiwqglTiuHOGk-AAAB").emit("receivingCode",{recCode:code});
+        socket.to("x42QgJMOLyKvyLWJAAAD").emit("receivingCode",{recCode:code});
+    })
+    socket.on('enteringInp',({inp})=>{
+        console.log(inp);
+        socket.to("x42QgJMOLyKvyLWJAAAD").emit("receivingInp",{inp})
+    })
+    socket.on("sendOp",({op})=>{
+        console.log("op ",op);
+        // socket.emit("receiveOp",{op})
+        socket.to("x42QgJMOLyKvyLWJAAAD").emit("receiveOp",{op})
     })
 })
