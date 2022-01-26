@@ -233,7 +233,8 @@ const Home = () => {
               backgroundColor: "#61004a",
               backgroundImage: `url("https://www.transparenttextures.com/patterns/blizzard.png")`,
             }}>
-          <h5 className="mt-4 text-white">Room Name: {username.length>15?`${username.slice(0,15)}...`:username}</h5>
+          <h6 className="mt-2 text-white">Room Name: {username.length>15?`${username.slice(0,15)}...`:username}</h6>
+          <h6 className="text-white">Room ID: {roomId}</h6>
           </div>
 
           <div
