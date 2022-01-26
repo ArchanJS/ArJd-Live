@@ -117,7 +117,7 @@ export default function Album() {
               ArJd-Live
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              A realtime code-editor and compiler to ease coding interview process. Users can create their own room and can invite others to their room. So, millions can work on a same code at the same time together !
+              A realtime code-editor and compiler to ease coding interview process. Users can create their rooms and can invite others to their rooms. So, millions can work on a same code at the same time together !
             </Typography>
             <Stack
               sx={{ pt: 4 }}
