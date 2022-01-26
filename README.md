@@ -8,7 +8,7 @@
 
  ➤ [Archan Banerjee](https://github.com/ArchanJS)
 
- ## **Feature**
+ ## **Features**:
 ✅ Users can create their own room as well as share link of their rooms.
 
 ✅ All the users in a particular room can update the same code simultaneously at the same time.
