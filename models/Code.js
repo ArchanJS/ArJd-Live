@@ -5,13 +5,16 @@ const codeSchema=new mongoose.Schema({
         type:String
     },
     code:{
-        type:String
+        type:String,
+        default:`print("Welcome to Arjditor!")`
     },
     extension:{
-        type:String
+        type:String,
+        default:"py"
     },
     language:{
-        type:String
+        type:String,
+        default:"python"
     },
     socketId:{
         type:String

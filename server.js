@@ -33,26 +33,34 @@ const io=require('socket.io')(server);
 
 io.on("connection",(socket)=>{
     console.log("Connected to socket!");
-    socket.on('joined',async({roomDbId,socketRoomId})=>{
-        console.log(roomDbId,' ',socketRoomId);
-        const code=await Code.findOne({_id:roomDbId});
-        if(code.socketId==undefined){
-            console.log("If");
-            await Code.findOneAndUpdate({_id:roomDbId},{
-                $set:{
-                    socketId:socketRoomId
-                }
-            });
-        }
-        else {
-            console.log("Else",' ',code.socketId);
-            socket.join(code.socketId);
-        }
+    socket.on('joined',async({roomDbId})=>{
+        console.log(roomDbId);
+        socket.join(roomDbId);
     })
-    // const code=await Code.findOne({})
-    // .emit("re");
-    socket.on("enteringCode",({code})=>{
+    socket.on("enteringCode",async({code,roomDbId})=>{
         console.log(code);
-        io.sockets.in("ntSiwqglTiuHOGk-AAAB").emit("receivingCode",{recCode:code});
+        await Code.findOneAndUpdate({_id:roomDbId},{
+            $set:{
+                code
+            }
+        });
+        socket.to(roomDbId).emit("receivingCode",{recCode:code});
+    })
+    socket.on('enteringInp',({inp,roomDbId})=>{
+        console.log(inp);
+        socket.to(roomDbId).emit("receivingInp",{inp})
+    })
+    socket.on("sendOp",({op,roomDbId})=>{
+        console.log("op ",op);
+        // socket.emit("receiveOp",{op})
+        socket.to(roomDbId).emit("receiveOp",{op})
+    })
+    socket.on("changeExtLangSn",async({lng,cd,ex,roomDbId})=>{
+        await Code.findOneAndUpdate({_id:roomDbId},{
+            $set:{
+                code:cd,language:lng,extension:ex
+            }
+        })
+        socket.to(roomDbId).emit("setExtLangSn",{lng,cd,ex});
     })
 })
