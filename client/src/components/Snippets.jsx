@@ -47,7 +47,7 @@ let java = new Language(
   }`
 );
 
-let javascript = new Language("JavaScript", "js", "javascript", `console.log("Welcome to ArJd-Live!")`);
+let javascript = new Language("JavaScript", "js", "javascript", `console.log("Welcome to ArJd-Live!");`);
 
 let csharp = new Language("C#", "cs", "csharp", `namespace Welcome
 {
