@@ -5,11 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "nodemon server.js",
-    "client": "cd client && npm start"
+    "start": "nodemon server.js"
   },
   "author": "Archan&Jaydip",
   "license": "ISC",
