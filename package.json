@@ -4,7 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "start": "nodemon server.js",
+    "client": "cd client && npm start"
   },
   "author": "Archan&Jaydip",
   "license": "ISC",
@@ -16,7 +21,6 @@
     "mongoose": "^6.1.6",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
-    "path": "^0.12.7",
     "socket.io": "^4.4.1"
   }
 }

@@ -3,7 +3,7 @@ require('dotenv').config({path:'./config.env'});
 const bodyParser=require('body-parser');
 const cors=require('cors');
 const morgan=require('morgan');
-// const path=require('path');
+const path=require('path');
 const Code=require('./models/Code');
 
 require('./db/conn');
@@ -18,13 +18,11 @@ app.use(bodyParser.urlencoded({limit:"50mb",extended:false}));
 
 app.use('/api',require('./routes/code'));
 
-if(process.env.NODE_ENV=='production'){
-    const path = require('path')
-
-    app.get('/',(req,res)=>{
-        app.use(express.static(path.resolve(__dirname,'client','build')))
-        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
-    })
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'))
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname,  "client/build", "index.html"));
+      });
 }
 
 const server=app.listen(port,()=>{
