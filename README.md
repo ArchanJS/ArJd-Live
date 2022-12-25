@@ -1,5 +1,5 @@
 # **ArJd-Live**
-## To visit *ArJd-Live* click [here](https://arjd-live.onrender.com/)
+## To visit *ArJd-Live* click [here](https://arjd-live.netlify.app/)
 ## Demo video click [here](https://youtu.be/nvcFr3a8WT4)
 
 
